@@ -52,3 +52,53 @@ The endpoint expects a JSON object with the following structure:
 {
   "message": "Internal server error"
 }
+
+# /users/login Endpoint Documentation
+
+## Endpoint
+**POST** `/users/login`
+
+## Description
+This endpoint is used to authenticate a user. It validates the input data, checks the credentials, and returns a token for authenticated access.
+
+## Headers
+- **Content-Type**: `application/json`
+
+## Request Body
+The endpoint expects a JSON object with the following structure:
+
+### Fields
+- **email** (string, required): Must be a valid email address.
+- **password** (string, required): Must be at least 6 characters long.
+
+### Example
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "securePassword123"
+}
+
+
+{
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "_id": "64f1c2e9b7a603d2f9f8b1e8",
+    "fullName": {
+      "firstname": "John",
+      "lastname": "Doe"
+    },
+    "email": "john.doe@example.com"
+  }
+}
+{
+  "errors": [
+    { "msg": "Invalid email format", "param": "email" },
+    { "msg": "Password must be at least 6 characters long", "param": "password" }
+  ]
+}
+{
+  "message": "Invalid email or password"
+}
+{
+  "message": "Internal server error"
+}
