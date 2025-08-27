@@ -102,3 +102,35 @@ The endpoint expects a JSON object with the following structure:
 {
   "message": "Internal server error"
 }
+### Documentation for `/users/profile` and `/users/logout`
+
+#### `/users/profile`
+- **Description**: This endpoint retrieves the profile information of the currently authenticated user.
+- **Method**: GET
+- **Authentication**: Required (Bearer Token or Session-based authentication).
+- **Response**:
+  - **200 OK**: Returns the user's profile data, including fields such as `id`, `name`, `email`, and other relevant details.
+  - **401 Unauthorized**: Returned if the user is not authenticated.
+- **Example Response**:
+  ```json
+  {
+    "id": 123,
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "created_at": "2023-01-01T12:00:00Z"
+  }
+  ```
+
+#### `/users/logout`
+- **Description**: This endpoint logs out the currently authenticated user by invalidating their session or token.
+- **Method**: POST
+- **Authentication**: Required (Bearer Token or Session-based authentication).
+- **Response**:
+  - **200 OK**: Indicates that the user has been successfully logged out.
+  - **401 Unauthorized**: Returned if the user is not authenticated.
+- **Example Response**:
+  ```json
+  {
+    "message": "Successfully logged out."
+  }
+  ```
