@@ -250,3 +250,109 @@ The endpoint expects a JSON object with the following structure:
         "message": "Internal server error"
       }
       ```
+    ### Updated Documentation for `/captains/register` and `/captains/login`
+
+    #### `/captains/register`
+    - **Description**: This endpoint is used to register a new captain. It validates the input data, hashes the password, and creates a captain record in the database.
+    - **Method**: POST
+    - **Headers**:
+      - **Content-Type**: `application/json`
+    - **Request Body**:
+      ```json
+      {
+        "fullName": {
+          "firstname": "Jane", // string, required, minimum 3 characters
+          "lastname": "Smith" // string, optional, minimum 3 characters if provided
+        },
+        "email": "jane.smith@example.com", // string, required, must be a valid email
+        "password": "securePassword123", // string, required, minimum 6 characters
+        "licenseNumber": "CAP123456" // string, required, must be a valid license number
+      }
+      ```
+    - **Responses**:
+      - **201 Created**:
+        ```json
+        {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+          "captain": {
+            "_id": "64f1c2e9b7a603d2f9f8b1e9",
+            "fullName": {
+              "firstname": "Jane",
+              "lastname": "Smith"
+            },
+            "email": "jane.smith@example.com",
+            "licenseNumber": "CAP123456"
+          }
+        }
+        ```
+      - **400 Bad Request**:
+        ```json
+        {
+          "errors": [
+            { "msg": "First name must be at least 3 characters long", "param": "fullName.firstname" },
+            { "msg": "Invalid email format", "param": "email" }
+          ]
+        }
+        ```
+      - **409 Conflict**:
+        ```json
+        {
+          "message": "Email or license number already exists"
+        }
+        ```
+      - **500 Internal Server Error**:
+        ```json
+        {
+          "message": "Internal server error"
+        }
+        ```
+
+    #### `/captains/login`
+    - **Description**: This endpoint is used to authenticate a captain. It validates the input data, checks the credentials, and returns a token for authenticated access.
+    - **Method**: POST
+    - **Headers**:
+      - **Content-Type**: `application/json`
+    - **Request Body**:
+      ```json
+      {
+        "email": "jane.smith@example.com", // string, required, must be a valid email
+        "password": "securePassword123" // string, required, minimum 6 characters
+      }
+      ```
+    - **Responses**:
+      - **200 OK**:
+        ```json
+        {
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+          "captain": {
+            "_id": "64f1c2e9b7a603d2f9f8b1e9",
+            "fullName": {
+              "firstname": "Jane",
+              "lastname": "Smith"
+            },
+            "email": "jane.smith@example.com",
+            "licenseNumber": "CAP123456"
+          }
+        }
+        ```
+      - **400 Bad Request**:
+        ```json
+        {
+          "errors": [
+            { "msg": "Invalid email format", "param": "email" },
+            { "msg": "Password must be at least 6 characters long", "param": "password" }
+          ]
+        }
+        ```
+      - **401 Unauthorized**:
+        ```json
+        {
+          "message": "Invalid email or password"
+        }
+        ```
+      - **500 Internal Server Error**:
+        ```json
+        {
+          "message": "Internal server error"
+        }
+        ```
