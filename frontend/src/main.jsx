@@ -1,14 +1,19 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.jsx'
-import { BrowserRouter } from 'react-router-dom'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.jsx";
+import UserContext from "./context/UserContext";
+import { BrowserRouter } from "react-router-dom";
+import CaptainContext from "./context/CaptainContext.jsx";
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <BrowserRouter>
-    <App />
-    </BrowserRouter>
-   
-  </StrictMode>,
-)
+    <CaptainContext>
+      <BrowserRouter>
+        <UserContext>
+          <App />
+        </UserContext>
+      </BrowserRouter>
+    </CaptainContext>
+  </StrictMode>
+);

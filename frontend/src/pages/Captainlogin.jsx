@@ -1,23 +1,50 @@
 import React,{ useState } from "react";
 import { Link } from "react-router-dom";
-
+import { CaptainDataContext } from "../context/CaptainContext";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 const Captainlogin = () => {
   
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
-    const [captainData,setCaptainData] = useState({})
-    const sumbmitHandler = (e)=>{
-        e.preventDefault()
-        setCaptainData({
-            email:email,
-            password:password
-        })
+    const {captain,setCaptain} = React.useContext(CaptainDataContext)
+    const navigate = useNavigate()
 
-        console.log(userData)
-        setEmail("")
-        setPassword('')
-    }
     
+    const submitHandler = async (e) => {
+      e.preventDefault();
+  
+      const loginData = { email, password };
+  
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/captains/login`,
+          loginData
+        );
+  
+        if (response.status === 200) {
+          const data = response.data;
+          setCaptain(data.captain);
+          localStorage.setItem("token", data.token);
+          navigate("/captain-home");
+  
+          // Clear input fields after successful login
+          setEmail("");
+          setPassword("");
+        }
+      } catch (err) {
+        if (err.response) {
+          // Server responded with error
+          alert(err.response.data.message || JSON.stringify(err.response.data));
+        } else if (err.request) {
+          // Request made but no response
+          alert("No response from server. Check your connection.");
+        } else {
+          // Other errors
+          alert(err.message);
+        }
+      }
+    };
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
       <div>
@@ -28,7 +55,7 @@ const Captainlogin = () => {
         />
 
         <form onSubmit={(e)=>{
-            sumbmitHandler(e)
+            submitHandler(e)
         }}>
           <h3 className="text-lg font-medium mb-2">What's your email</h3>
           <input

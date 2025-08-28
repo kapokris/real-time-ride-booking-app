@@ -1,39 +1,20 @@
-const captainModel= require("../models/captain.model");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const captainModel = require("../models/captain.model");
 
+module.exports.createCaptain = async ({ fullName, email, password, vehicle }) => {
+  if (!fullName?.firstname || !email || !password || !vehicle?.color || !vehicle?.plate || !vehicle?.capacity || !vehicle?.vehicleType) {
+    throw new Error("Please provide all required fields");
+  }
 
-module.exports.createCaptain = async ({
-    firstname,
-    lastname,
+  const captain = await captainModel.create({
+    fullName,
     email,
     password,
-    color,
-    plate,
-    capacity,
-    vehicleType,
-}) =>{
-    if(!firstname || !email || !password || !color || !plate || !capacity || !vehicleType) {    
-        throw new Error("Please provide all required fields");
-    }
-    const captain = await captainModel.create({
-        fullName: {
-            firstname,
-            lastname
-        },
-        email,
-        password,
-        vehicle:{
-            color,
-            plate,
-            capacity,
-            vehicleType
-        },
-        status:'inactive'
-        
-    });
-    return captain;
-    
-}
-    
-    
+    vehicle,
+    status: "inactive",
+  });
+
+  return captain;
+};
+
+module.exports.getCaptainByEmail = async (email) => captainModel.findOne({ email });
+module.exports.getCaptainById = async (id) => captainModel.findById(id);

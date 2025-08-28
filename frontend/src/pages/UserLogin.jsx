@@ -1,22 +1,37 @@
-import React,{ useState } from "react";
-import { Link } from "react-router-dom";
+import React,{ useState,useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { UserDataContext } from "../context/UserContext";
+import axios from "axios";
+
 
 
 const UserLogin = () => {
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const [userData,setUserData] = useState({})
-    const sumbmitHandler = (e)=>{
-        e.preventDefault()
-        setUserData({
-            email:email,
-            password:password
-        })
-
-        console.log(userData)
-        setEmail("")
-        setPassword('')
-    }
+    const {user,setUser} = useContext(UserDataContext)
+    const navigate = useNavigate()
+    const submitHandler = async (e) => {
+      e.preventDefault();
+  
+      try {
+        const response = await axios.post(
+          `${import.meta.env.VITE_BASE_URL}/users/login`,
+          { email, password }
+        );
+  
+        console.log("Login response:", response.data);
+  
+        setUser(response.data.user); // update context
+        navigate("/home"); // redirect
+  
+        setEmail("");
+        setPassword("");
+      } catch (err) {
+        console.error("Login Error:", err.response?.data || err.message);
+        alert(err.response?.data?.message || "Login failed. Please try again.");
+      }
+    };
     
   return (
     <div className="p-7 h-screen flex flex-col justify-between">
@@ -28,7 +43,7 @@ const UserLogin = () => {
         />
 
         <form onSubmit={(e)=>{
-            sumbmitHandler(e)
+            submitHandler(e)
         }}>
           <h3 className="text-lg font-medium mb-2">What's your email</h3>
           <input
