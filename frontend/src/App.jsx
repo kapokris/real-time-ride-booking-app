@@ -9,6 +9,8 @@ import Start from './pages/Start'
 import Home from './pages/Home'
 import UserLogout from './pages/UserLogout'
 import CaptainHome from './pages/CaptainHome'
+import Riding from './pages/Riding'
+import CaptainRiding from './pages/CaptainRiding'
 
 
 
@@ -25,6 +27,8 @@ const App = () => {
         <Route path='/home' element={<Home/>} />
         <Route path='/user/logout' element={<UserLogout/>} />
         <Route path='/captain-home' element={<CaptainHome/>} />
+        <Route path='/riding' element={<Riding/>} />
+        <Route path='/captain-riding' element={<CaptainRiding/>} />
       </Routes>
     </div>
   )
