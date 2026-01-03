@@ -1,6 +1,6 @@
-# 🚖 Uber Clone – Full Stack MERN Application
+# 🚖 Real-Time Ride Booking App
 
-A full-stack Uber-like ride booking application built using the **MERN stack** with real-time ride updates, authentication, and separate flows for **Users** and **Captains (Drivers)**.
+A full-stack Real-Time Ride Booking App built using the **MERN stack** with real-time ride updates, authentication, and separate flows for **Users** and **Captains (Drivers)**.
 
 ---
 
