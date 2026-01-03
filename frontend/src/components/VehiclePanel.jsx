@@ -11,8 +11,11 @@ const VehiclePanel = (props) => {
         {/* Vehicles */}
         {/* UberGo */}
         <div onClick={()=>{
-            props.setConfirmRidePanel(true);
-            props.setVehiclePanel(false);
+            props.selectVehicle('car');
+props.setVehiclePanel(false);
+props.setWaitingForDriver(true);
+props.createRide('car');
+
             
         }} className="flex w-full border-2 rounded-xl mb-2 p-3 items-center justify-between cursor-pointer">
           <img
@@ -29,14 +32,17 @@ const VehiclePanel = (props) => {
               Affordable, compact rides
             </p>
           </div>
-          <h2 className="text-lg font-semibold">$21.24</h2>
+          <h2 className="text-lg font-semibold">${props.fare?.car ?? 0}
+</h2>
         </div>
 
         {/* Moto */}
         <div onClick={()=>{
-            props.setConfirmRidePanel(true);
-            props.setVehiclePanel(false);
-            
+            props.selectVehicle('motorcycle');
+props.setVehiclePanel(false);
+props.setWaitingForDriver(true);
+props.createRide('motorcycle');
+
         }} className="flex w-full border-2 mb-2 rounded-xl p-3 items-center justify-between cursor-pointer">
           <img
             className="h-12"
@@ -52,13 +58,16 @@ const VehiclePanel = (props) => {
               Affordable motorcycle rides
             </p>
           </div>
-          <h2 className="text-lg font-semibold">$12.24</h2>
+          <h2 className="text-lg font-semibold">${props.fare?.motorcycle ?? 0}</h2>
         </div>
 
         {/* Another UberGo / Example */}
         <div onClick={()=>{
-            props.setConfirmRidePanel(true);
-            props.setVehiclePanel(false);
+            props.selectVehicle('auto');
+props.setVehiclePanel(false);
+props.setWaitingForDriver(true);
+props.createRide('auto');
+
             
         }} className="flex w-full border-2 rounded-xl mb-2 p-3 items-center justify-between cursor-pointer">
           <img
@@ -75,7 +84,7 @@ const VehiclePanel = (props) => {
               Affordable, compact rides
             </p>
           </div>
-          <h2 className="text-lg font-semibold">$22.00</h2>
+          <h2 className="text-lg font-semibold">${props.fare?.auto ?? 0}</h2>
         </div>
     </div>
   )

@@ -1,6 +1,3 @@
-const dotenv=require('dotenv')
-dotenv.config()
-
 
 const express=require('express')
 const cors=require('cors')
@@ -14,10 +11,13 @@ const rideRoutes = require('./routes/ride.routes');
 
 
 const app=express()
-app.use(cors({ 
-    origin: "http://localhost:5173", // your React app
-    credentials: true
-  }))
+app.use(cors({
+  origin: "http://localhost:5173",   // your Vite frontend
+  credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+}));
+
 
 connectToDb();
 

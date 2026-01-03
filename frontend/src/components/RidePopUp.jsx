@@ -16,7 +16,7 @@ const RidePopUp = (props) => {
       <div className='flex items-center justify-between p-3 bg-yellow-400 rounded-lg mt-4 '>
         <div className='flex items-center gap-3 '>
             <img  className="h-12 w-10 rounded-full object-cover" src="https://i.pinimg.com/736x/be/a3/49/bea3491915571d34a026753f4a872000.jpg" alt="" />
-            <h2 className='text-lg font-medium'>Krishna Kapoor</h2>
+            <h2 className='text-lg font-medium capitalize'>{props.ride?.user.fullName.firstname + " " + props.ride?.user.fullName.lastname}</h2>
         </div>
         <h5 className='text-lg font-semibold'>2.2 KM</h5>
       </div>
@@ -26,7 +26,7 @@ const RidePopUp = (props) => {
           <div className="flex items-center gap-5 p-2 border-b-2">
             <i className="ri-map-pin-user-fill"></i>
             <div>
-              <h3 className="text-lg font-medium">1430, Trafalgar Road</h3>
+              <h3 className="text-lg font-medium">{props.ride?.pickup}</h3>
               <p className="text-sm -mt-1 text-gray-600">
                 Sheridan College, Oakville
               </p>
@@ -35,7 +35,7 @@ const RidePopUp = (props) => {
           <div className="flex items-center gap-5 p-2 border-b-2">
             <i className="text-lg ri-map-pin-2-fill"></i>
             <div>
-              <h3 className="text-lg font-medium">1430, Trafalgar Road</h3>
+              <h3 className="text-lg font-medium">{props.ride?.destination}</h3>
               <p className="text-sm -mt-1 text-gray-600">
                 Sheridan College, Oakville
               </p>
@@ -44,7 +44,7 @@ const RidePopUp = (props) => {
           <div className="flex items-center gap-5 p-2 mb-5" >
             <i className="ri-currency-line"></i>
             <div>
-              <h3 className="text-lg font-medium">$22.54</h3>
+              <h3 className="text-lg font-medium">${props.ride?.fare}</h3>
               <p className="text-sm -mt-1 text-gray-600">Cash Cash</p>
             </div>
           </div>
@@ -58,6 +58,8 @@ const RidePopUp = (props) => {
         </button>
         <button onClick={()=>{
             props.setConfirmRidePopUpPanel(true);
+            props.confirmRide()
+            props.setWaitingForDriver(false);
             
         }} className=" bg-green-600 text-white font-semibold px-8 p-3 rounded-lg ">
           Accept

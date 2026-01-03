@@ -22,8 +22,14 @@ const UserLogin = () => {
   
         console.log("Login response:", response.data);
   
-        setUser(response.data.user); // update context
-        navigate("/home"); // redirect
+        const { token, user } = response.data;
+
+        // ✅ save token so maps routes can work
+        localStorage.setItem("token", token);
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+        setUser(user);
+        navigate("/home");
   
         setEmail("");
         setPassword("");

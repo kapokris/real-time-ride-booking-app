@@ -5,7 +5,7 @@ const WaitingForDriver = (props) => {
     <div>
       <h5
         onClick={() => {
-          props.waitingForDriver(false);
+          props.setWaitingForDriver(false);
         }}
         className="p-1 text-center w-[93%] absolute top-0"
       >
@@ -24,7 +24,7 @@ const WaitingForDriver = (props) => {
             <div>
               <h3 className="text-lg font-medium">1430, Trafalgar Road</h3>
               <p className="text-sm -mt-1 text-gray-600">
-                Sheridan College, Oakville
+                {props.pickup}
               </p>
             </div>
           </div>
@@ -33,14 +33,14 @@ const WaitingForDriver = (props) => {
             <div>
               <h3 className="text-lg font-medium">1430, Trafalgar Road</h3>
               <p className="text-sm -mt-1 text-gray-600">
-                Sheridan College, Oakville
+                {props.destination}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-5 p-2 ">
             <i className="ri-currency-line"></i>
             <div>
-              <h3 className="text-lg font-medium">$22.54</h3>
+              <h3 className="text-lg font-medium">${props.fare[props.vehicleType]}</h3>
               <p className="text-sm -mt-1 text-gray-600">Cash Cash</p>
             </div>
           </div>

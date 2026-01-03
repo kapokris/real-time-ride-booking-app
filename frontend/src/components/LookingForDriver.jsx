@@ -19,9 +19,10 @@ const LookingForDriver = (props) => {
           alt=""
         />
         <div className="text-right">
-            <h2 className="text-lg font-medium">Krishna</h2>
-            <h4 className="text-xl -mt-1 -mb-1 font-semibold">DEPK 7548</h4>
+            <h2 className="text-lg font-medium">{props.ride?.captain?.fullName?.firstname || "Driver"}</h2>
+            <h4 className="text-xl -mt-1 -mb-1 font-semibold">{props.ride?.captain?.vehicle?.plate || "----"}</h4>
             <p className="text-sm text-gray-600">Toyota Camry</p>
+            <h1 className="text-lg font-semibold">{props.ride?.otp}</h1>
         </div>
       </div>
       <div className="gap-2 flex justify-between flex-col itens-center">
@@ -31,7 +32,7 @@ const LookingForDriver = (props) => {
             <div>
               <h3 className="text-lg font-medium">1430, Trafalgar Road</h3>
               <p className="text-sm -mt-1 text-gray-600">
-                Sheridan College, Oakville
+                {props.ride?.pickup}
               </p>
             </div>
           </div>
@@ -40,14 +41,14 @@ const LookingForDriver = (props) => {
             <div>
               <h3 className="text-lg font-medium">1430, Trafalgar Road</h3>
               <p className="text-sm -mt-1 text-gray-600">
-                Sheridan College, Oakville
+                {props.ride?.destination}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-5 p-2 ">
             <i className="ri-currency-line"></i>
             <div>
-              <h3 className="text-lg font-medium">$22.54</h3>
+              <h3 className="text-lg font-medium">${props.ride?.fare}</h3>
               <p className="text-sm -mt-1 text-gray-600">Cash Cash</p>
             </div>
           </div>

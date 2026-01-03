@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const rideSchema = new mongoose.Schema({
     user:{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+        ref: 'user',
         required: true
     },
     captain:{
@@ -26,7 +26,7 @@ const rideSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['requested', 'accepted', 'ongoing', 'completed', 'cancelled'],
+        enum: ['pending', 'accepted', 'ongoing', 'completed', 'cancelled'],
         default: 'pending'
     },
     duration:{
